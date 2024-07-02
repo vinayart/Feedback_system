@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Emotion Detection</title>
+</head>
+
+<body style="background-color: greenyellow;">
+
+    <div class=" col-sm-12  nav-bar " style=" width: 100%; border: 2px solid black; ">
+
+        <nav class="navbar navbar-expand-sm " style="background-color: greenyellow;">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <div class=" col-sm-1 menu" style="background-color: black; text-align: center;">
+                                <input type="button" data-bs-toggle="offcanvas" data-bs-target="#SIDE"
+                                    style="width: auto; color: black; padding: 15px; " value="PROFILE">
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#face_recog" style="padding: 20px; font-weight: bolder; font-size: 25px;">
+                            <p style="text-decoration: white; font-size: 25px;">1)FACE RECOG</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#SUDOKU" id="login"
+                            style="padding: 20px; font-weight: bolder; font-size: 25px; margin-left: 550px;" }
+                            onclick="display_log()">LOG IN?</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#SUDOKU" style="padding: 20px; font-weight: bolder; font-size: 25px;"
+                            onclick="display_signup()">SIGN IN?</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="offcanvas offcanvas-start" id="SIDE"
+        style="display: flex; flex-direction: column; align-items: center; z-index: 1050; border: 3px solid black;">
+        <div class="offcanvas-header">
+            <h1 class="offcanvas-title">PROFILE</h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="display: flex; flex-direction: column; align-items: center;">
+            <img src="profile.jpeg" alt="">
+            <label for="" style="width: 100%; height: 3px; background-color: black; margin-top: 20px;"></label>
+            <label for="">NAME:<label>VINAY KESARWANI</label></label><br>
+            <label for="">PHONE NO:<label>9827382888</label></label><br>
+            <label for="">E-mail:: <label>ABC123@gmail.com</label></label><br>
+            <button type="button" data-bs-dismiss="offcanvas">CLOSE</button>
+        </div>
+    </div>
+    <div class="container" style="background-color: aqua;" id="face_recog">
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <h1 class="mb-4">Emotion Detection</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="/upload" method="post" enctype="multipart/form-data" class="mb-4">
+                    <div class="input-group">
+                        <input type="file" name="file" class="form-control" accept="image/*" required>
+                        <button type="submit" class="btn btn-primary">Detect Emotion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if result_image %}
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <h2 class="mt-4">Result:</h2>
+                <img src="data:image/png;base64,{{ result_image }}" alt="Result" class="img-fluid">
+            </div>
+        </div>
+        {% endif %}
+
+        {% if male_count is defined and female_count is defined %}
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <h4 class="text-center">Gender Counts</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Male Count: {{ male_count }}</li>
+                    <li class="list-group-item">Female Count: {{ female_count }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if emotion_names %}
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <h4 class="text-center">EMOTIONS</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">EMOTIONS: {{emotion_names }}</li>
+                    \
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
